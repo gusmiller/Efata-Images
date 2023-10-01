@@ -6683,6 +6683,12 @@ fieldset:disabled .btn {
       transition: transform .6s ease-in-out
 }
 
+.carousel-item img {
+      margin-left: auto;
+      margin-right: auto;
+}
+
+
 @media (prefers-reduced-motion:reduce) {
       .carousel-item {
             transition: none
@@ -6744,12 +6750,12 @@ fieldset:disabled .btn {
       justify-content: center;
       width: 15%;
       padding: 0;
-      color: #fff;
+      color: #212529;
       text-align: center;
       background: 0 0;
       border: 0;
-      opacity: .5;
-      transition: opacity .15s ease
+      opacity: .85;
+      transition: opacity .15s ease;
 }
 
 @media (prefers-reduced-motion:reduce) {
@@ -6771,11 +6777,13 @@ fieldset:disabled .btn {
 }
 
 .carousel-control-prev {
-      left: 0
+      left: 0;
+      justify-content: flex-start !important;
 }
 
 .carousel-control-next {
-      right: 0
+      right: 0;
+      justify-content: flex-end !important;      
 }
 
 .carousel-control-next-icon,
