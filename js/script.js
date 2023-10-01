@@ -11,22 +11,46 @@
  */
 $(document).ready(function () {
 
+      /**
+       * This function will remove all the carousel id's from sections. This is very tricky
+       * since once it is change then next time Id would be different.
+       */
+      function removeAttributes(disableObject, enabledObject) {
+
+            // Remove attribute to selected option            
+            enabledObject.removeAttr("hidden");
+
+            // This obeject needs to be restored
+            enabledObject.children("div").attr("id","carousel");
+
+            for (x = 0; x <= disableObject.length; x++) {
+
+                  // This section will need to be hidden
+                  $("#" + disableObject[x]).attr("hidden", true);
+
+                  $("#" + disableObject[x]).children("div").each(function() {
+                        $(this).attr("id", "carousel-disabled")
+                        console.log($(this).attr("id"));
+                    });
+            }
+      }
+
+      // JQuery event listener for Repairs
       $("#repairs").on("click", function () {
-            $("#section-repairs").removeAttr("hidden"); // Remove attribute to selected option            
-            $("#section-celebrations").attr("hidden", true); // Add hidden attribute
-            $("#section-ventilation").attr("hidden", true); // Add hidden attribute
+            // This will remove the carousel references from ALL nodes.
+            removeAttributes(["section-celebrations", "section-ventilation"], $("#section-repairs"));
       })
 
+      // JQuery event listener for Celebrations
       $("#celebrations").on("click", function () {
-            $("#section-repairs").attr("hidden", true); // Add hidden attribute            
-            $("#section-celebrations").removeAttr("hidden"); // Remove attribute to selected option
-            $("#section-ventilation").attr("hidden", true); // Add hidden attribute
+            // This will remove the carousel references from ALL nodes.
+            removeAttributes(["section-repairs", "section-ventilation"], $("#section-celebrations"));
       })
 
+      // JQuery event listener for Ventilation
       $("#ventilation").on("click", function () {
-            $("#section-repairs").attr("hidden", true); // Add hidden attribute            
-            $("#section-celebrations").attr("hidden",true); // Remove attribute to selected option
-            $("#section-ventilation").removeAttr("hidden"); // Add hidden attribute
+            // This will remove the carousel references from ALL nodes.
+            removeAttributes(["section-repairs", "section-celebrations"], $("#section-ventilation"));
       })
 
       /**
