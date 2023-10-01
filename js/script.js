@@ -30,7 +30,6 @@ $(document).ready(function () {
 
                   $("#" + disableObject[x]).children("div").each(function () {
                         $(this).attr("id", "carousel-disabled")
-                        console.log($(this).attr("id"));
                   });
             }
       }
@@ -56,7 +55,7 @@ $(document).ready(function () {
       // JQuery event listener for baptism
       $("#baptism").on("click", function () {
             // This will remove the carousel references from ALL nodes.
-            removeAttributes(["section-repairs", "section-celebrations", "section-baptism"], $("#section-baptism"));
+            removeAttributes(["section-repairs", "section-celebrations", "section-ventilation"], $("#section-baptism"));
       })
 
       /**
@@ -65,9 +64,8 @@ $(document).ready(function () {
        * it would not add; as the next row. Leave for later.
        */
       function init() {
-            $("#section-repairs").removeAttr("hidden"); // Remove attribute to selected option
-            $("#section-celebrations").attr("hidden", true); // Add hidden attribute
-            $("#section-ventilation").attr("hidden", true); // Add hidden attribute
+            // This will remove the carousel references from ALL nodes.
+            removeAttributes(["section-celebrations", "section-ventilation", "section-baptism"], $("#section-repairs"));
       }
 
       init();
