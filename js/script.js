@@ -21,36 +21,42 @@ $(document).ready(function () {
             enabledObject.removeAttr("hidden");
 
             // This obeject needs to be restored
-            enabledObject.children("div").attr("id","carousel");
+            enabledObject.children("div").attr("id", "carousel");
 
             for (x = 0; x <= disableObject.length; x++) {
 
                   // This section will need to be hidden
                   $("#" + disableObject[x]).attr("hidden", true);
 
-                  $("#" + disableObject[x]).children("div").each(function() {
+                  $("#" + disableObject[x]).children("div").each(function () {
                         $(this).attr("id", "carousel-disabled")
                         console.log($(this).attr("id"));
-                    });
+                  });
             }
       }
 
       // JQuery event listener for Repairs
       $("#repairs").on("click", function () {
             // This will remove the carousel references from ALL nodes.
-            removeAttributes(["section-celebrations", "section-ventilation"], $("#section-repairs"));
+            removeAttributes(["section-celebrations", "section-ventilation", "section-baptism"], $("#section-repairs"));
       })
 
       // JQuery event listener for Celebrations
       $("#celebrations").on("click", function () {
             // This will remove the carousel references from ALL nodes.
-            removeAttributes(["section-repairs", "section-ventilation"], $("#section-celebrations"));
+            removeAttributes(["section-repairs", "section-ventilation", "section-baptism"], $("#section-celebrations"));
       })
 
       // JQuery event listener for Ventilation
       $("#ventilation").on("click", function () {
             // This will remove the carousel references from ALL nodes.
-            removeAttributes(["section-repairs", "section-celebrations"], $("#section-ventilation"));
+            removeAttributes(["section-repairs", "section-celebrations", "section-baptism"], $("#section-ventilation"));
+      })
+
+      // JQuery event listener for baptism
+      $("#baptism").on("click", function () {
+            // This will remove the carousel references from ALL nodes.
+            removeAttributes(["section-repairs", "section-celebrations", "section-baptism"], $("#section-baptism"));
       })
 
       /**
