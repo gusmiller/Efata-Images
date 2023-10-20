@@ -9,13 +9,16 @@
  * Main jQuery entry call. Wrapped after the page load process has been completed and document can be manipulated safely.
  * It contains all functions available. These are my public keys for Bing and Open weather
  */
+
 $(document).ready(function () {
 
       /**
        * This function will remove all the carousel id's from sections. This is very tricky
        * since once it is change then next time Id would be different.
        */
-      function removeAttributes(disableObject, enabledObject) {
+      function removeAttributes(enabledObject) {
+
+            const disableObject = ["section-celebrations", "section-ventilation", "section-baptism", "section-conference", "section-kitchen", "section-repairs"];
 
             // Remove attribute to selected option            
             enabledObject.removeAttr("hidden");
@@ -25,37 +28,53 @@ $(document).ready(function () {
 
             for (x = 0; x <= disableObject.length; x++) {
 
-                  // This section will need to be hidden
-                  $("#" + disableObject[x]).attr("hidden", true);
+                  if (disableObject[x] != enabledObject[0].id) {
 
-                  $("#" + disableObject[x]).children("div").each(function () {
-                        $(this).attr("id", "carousel-disabled")
-                  });
+                        // This section will need to be hidden
+                        $("#" + disableObject[x]).attr("hidden", true);
+
+                        $("#" + disableObject[x]).children("div").each(function () {
+                              $(this).attr("id", "carousel-disabled")
+                        });
+                  }
+
             }
       }
 
       // JQuery event listener for Repairs
       $("#repairs").on("click", function () {
-            // This will remove the carousel references from ALL nodes.
-            removeAttributes(["section-celebrations", "section-ventilation", "section-baptism"], $("#section-repairs"));
+            // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
+            removeAttributes($("#section-repairs"));
       })
 
       // JQuery event listener for Celebrations
       $("#celebrations").on("click", function () {
-            // This will remove the carousel references from ALL nodes.
-            removeAttributes(["section-repairs", "section-ventilation", "section-baptism"], $("#section-celebrations"));
+            // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
+            removeAttributes($("#section-celebrations"));
       })
 
       // JQuery event listener for Ventilation
       $("#ventilation").on("click", function () {
-            // This will remove the carousel references from ALL nodes.
-            removeAttributes(["section-repairs", "section-celebrations", "section-baptism"], $("#section-ventilation"));
+            // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
+            removeAttributes($("#section-ventilation"));
       })
 
       // JQuery event listener for baptism
       $("#baptism").on("click", function () {
-            // This will remove the carousel references from ALL nodes.
-            removeAttributes(["section-repairs", "section-celebrations", "section-ventilation"], $("#section-baptism"));
+            // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
+            removeAttributes($("#section-baptism"));
+      })
+
+      // JQuery event listener for baptism
+      $("#conference").on("click", function () {
+            // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
+            removeAttributes($("#section-conference"));
+      })
+
+      // JQuery event listener for baptism
+      $("#kitchen").on("click", function () {
+            // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
+            removeAttributes($("#section-kitchen"));
       })
 
       /**
@@ -65,7 +84,7 @@ $(document).ready(function () {
        */
       function init() {
             // This will remove the carousel references from ALL nodes.
-            removeAttributes(["section-celebrations", "section-ventilation", "section-baptism"], $("#section-repairs"));
+            removeAttributes($("#section-repairs"));
       }
 
       init();
