@@ -26,7 +26,7 @@ $(document).ready(function () {
             // This obeject needs to be restored
             enabledObject.children("div").attr("id", "carousel");
 
-            for (x = 0; x <= disableObject.length; x++) {
+            for (x = 0; x <= disableObject.length-1; x++) {
 
                   if (disableObject[x] != enabledObject[0].id) {
 
