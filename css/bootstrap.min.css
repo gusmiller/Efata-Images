@@ -645,8 +645,8 @@ progress {
 }
 
 .img-fluid-smaller {
-      max-width: 80%;
-      height: auto
+      width: 70%;
+      height: 700px !important;
 }
 
 .img-thumbnail {

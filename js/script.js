@@ -20,7 +20,14 @@ $(document).ready(function () {
        */
       function removeAttributes(enabledObject) {
 
-            const disableObject = ["section-celebrations", "section-ventilation", "section-baptism", "section-conference", "section-kitchen", "section-repairs"];
+            const disableObject = [
+                  "section-celebrations",
+                  "section-ventilation", 
+                  "section-baptism", 
+                  "section-conference", 
+                  "section-kitchen", 
+                  "section-repairs", 
+                  "section-camp"];
 
             // Remove attribute to selected option            
             enabledObject.removeAttr("hidden");
@@ -44,14 +51,14 @@ $(document).ready(function () {
       }
       function validateuse() {
             const optionsfound = document.getElementsByClassName("nav-link")
-            let savedoptions = JSON.parse(localStorage.getItem("dateopened"));
+            let pagesections = localStorage.getItem("dateopened");
             let comparison
             let timesentered = 0;
 
             // If the localstorage is empty then we need to create an array with 
             // menu options we have. If there is no new options then the process will 
             // carry on. 
-            if (savedoptions === null) {
+            if (pagesections === null) {
 
                   // Scan and add items into array. The ID of the element  is used to light up the optiob
                   for (let i = 0; i < optionsfound.length; i++) {
@@ -64,8 +71,9 @@ $(document).ready(function () {
 
             } else {
 
+                  let savedoptions = JSON.parse(localStorage.getItem("dateopened"));
                   timesentered = parseInt(localStorage.getItem("opentimes")); // Retrieve the times entere
-                  
+
                   // Load the existing options from the menu html tags. This is to compare
                   // with what the user has in the localstorage.
                   for (let i = 0; i < optionsfound.length; i++) {
@@ -133,6 +141,12 @@ $(document).ready(function () {
       $("#kitchen").on("click", function () {
             // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
             removeAttributes($("#section-kitchen"));
+      })
+
+      // JQuery event listener for baptism
+      $("#camp").on("click", function () {
+            // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
+            removeAttributes($("#section-camp"));
       })
 
       /**
