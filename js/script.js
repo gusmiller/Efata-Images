@@ -12,153 +12,161 @@
 
 $(document).ready(function () {
 
-      var menuoptions = []; // Declare empty array - this will hold the tasks
+     var menuoptions = []; // Declare empty array - this will hold the tasks
 
-      /**
-       * This function will remove all the carousel id's from sections. This is very tricky
-       * since once it is change then next time Id would be different.
-       */
-      function removeAttributes(enabledObject) {
+     /**
+      * This function will remove all the carousel id's from sections. This is very tricky
+      * since once it is change then next time Id would be different.
+      */
+     function removeAttributes(enabledObject) {
 
-            const disableObject = [
-                  "section-celebrations",
-                  "section-ventilation", 
-                  "section-baptism", 
-                  "section-conference", 
-                  "section-kitchen", 
-                  "section-repairs", 
-                  "section-camp"];
+          const disableObject = [
+               "section-celebrations",
+               "section-ventilation",
+               "section-baptism",
+               "section-conference",
+               "section-kitchen",
+               "section-repairs",
+               "section-camp",
+               "section-famchristmas"
+          ];
 
-            // Remove attribute to selected option            
-            enabledObject.removeAttr("hidden");
+          // Remove attribute to selected option            
+          enabledObject.removeAttr("hidden");
 
-            // This obeject needs to be restored
-            enabledObject.children("div").attr("id", "carousel");
+          // This obeject needs to be restored
+          enabledObject.children("div").attr("id", "carousel");
 
-            for (x = 0; x <= disableObject.length - 1; x++) {
+          for (x = 0; x <= disableObject.length - 1; x++) {
 
-                  if (disableObject[x] != enabledObject[0].id) {
+               if (disableObject[x] != enabledObject[0].id) {
 
-                        // This section will need to be hidden
-                        $("#" + disableObject[x]).attr("hidden", true);
+                    // This section will need to be hidden
+                    $("#" + disableObject[x]).attr("hidden", true);
 
-                        $("#" + disableObject[x]).children("div").each(function () {
-                              $(this).attr("id", "carousel-disabled")
-                        });
-                  }
+                    $("#" + disableObject[x]).children("div").each(function () {
+                         $(this).attr("id", "carousel-disabled")
+                    });
+               }
 
-            }
-      }
-      function validateuse() {
-            const optionsfound = document.getElementsByClassName("nav-link")
-            let pagesections = localStorage.getItem("dateopened");
-            let comparison
-            let timesentered = 0;
+          }
+     }
+     function validateuse() {
+          const optionsfound = document.getElementsByClassName("nav-link")
+          let pagesections = localStorage.getItem("dateopened");
+          let comparison
+          let timesentered = 0;
 
-            // If the localstorage is empty then we need to create an array with 
-            // menu options we have. If there is no new options then the process will 
-            // carry on. 
-            if (pagesections === null) {
+          // If the localstorage is empty then we need to create an array with 
+          // menu options we have. If there is no new options then the process will 
+          // carry on. 
+          if (pagesections === null) {
 
-                  // Scan and add items into array. The ID of the element  is used to light up the optiob
-                  for (let i = 0; i < optionsfound.length; i++) {
-                        menuoptions.push(optionsfound[i].id);
-                  }
+               // Scan and add items into array. The ID of the element  is used to light up the optiob
+               for (let i = 0; i < optionsfound.length; i++) {
+                    menuoptions.push(optionsfound[i].id);
+               }
 
-                  timesentered = 0; // First time using; we grant an extra item
-                  localStorage.setItem("dateopened", JSON.stringify(menuoptions)); // Save into Localstorage
-                  localStorage.setItem("opentimes", timesentered.toString()); // Save into Localstorage
+               timesentered = 0; // First time using; we grant an extra item
+               localStorage.setItem("dateopened", JSON.stringify(menuoptions)); // Save into Localstorage
+               localStorage.setItem("opentimes", timesentered.toString()); // Save into Localstorage
 
-            } else {
+          } else {
 
-                  let savedoptions = JSON.parse(localStorage.getItem("dateopened"));
-                  timesentered = parseInt(localStorage.getItem("opentimes")); // Retrieve the times entere
+               let savedoptions = JSON.parse(localStorage.getItem("dateopened"));
+               timesentered = parseInt(localStorage.getItem("opentimes")); // Retrieve the times entere
 
-                  // Load the existing options from the menu html tags. This is to compare
-                  // with what the user has in the localstorage.
-                  for (let i = 0; i < optionsfound.length; i++) {
-                        menuoptions.push(optionsfound[i].id);
-                  }
+               // Load the existing options from the menu html tags. This is to compare
+               // with what the user has in the localstorage.
+               for (let i = 0; i < optionsfound.length; i++) {
+                    menuoptions.push(optionsfound[i].id);
+               }
 
-                  // Compare with local storage using the length of the array generated by the 
-                  // local storage and the count we have.
-                  if (JSON.stringify(menuoptions) != JSON.stringify(savedoptions)) {
-                        comparison = menuoptions.filter(item => !savedoptions.includes(item));
+               // Compare with local storage using the length of the array generated by the 
+               // local storage and the count we have.
+               if (JSON.stringify(menuoptions) != JSON.stringify(savedoptions)) {
+                    comparison = menuoptions.filter(item => !savedoptions.includes(item));
 
-                        // Go through the ones we found and light up the option with a different color
-                        comparison.forEach(element => {
-                              document.getElementById(element).classList.add("menured")
-                              savedoptions.push(element) //Push new element added
-                        });
+                    // Go through the ones we found and light up the option with a different color
+                    comparison.forEach(element => {
+                         document.getElementById(element).classList.add("menured")
+                         savedoptions.push(element) //Push new element added
+                    });
 
-                        // We count the times user has opened the page on their computer and store this 
-                        // on the localstorage.
-                        if (timesentered > 2) {
-                              localStorage.setItem("dateopened", JSON.stringify(savedoptions));
-                        } else {
+                    // We count the times user has opened the page on their computer and store this 
+                    // on the localstorage.
+                    if (timesentered > 2) {
+                         localStorage.setItem("dateopened", JSON.stringify(savedoptions));
+                    } else {
 
-                              timesentered++;// Increment counter 
-                              localStorage.setItem("opentimes", timesentered.toString()); //Save into Local storage
-                        }
+                         timesentered++;// Increment counter 
+                         localStorage.setItem("opentimes", timesentered.toString()); //Save into Local storage
+                    }
 
-                  }
+               }
 
-            }
+          }
 
-      }
+     }
 
-      // JQuery event listener for Repairs
-      $("#repairs").on("click", function () {
-            // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
-            removeAttributes($("#section-repairs"));
-      })
+     // JQuery event listener for Repairs
+     $("#repairs").on("click", function () {
+          // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
+          removeAttributes($("#section-repairs"));
+     })
 
-      // JQuery event listener for Celebrations
-      $("#celebrations").on("click", function () {
-            // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
-            removeAttributes($("#section-celebrations"));
-      })
+     // JQuery event listener for Celebrations
+     $("#celebrations").on("click", function () {
+          // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
+          removeAttributes($("#section-celebrations"));
+     })
 
-      // JQuery event listener for Ventilation
-      $("#ventilation").on("click", function () {
-            // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
-            removeAttributes($("#section-ventilation"));
-      })
+     // JQuery event listener for Ventilation
+     $("#ventilation").on("click", function () {
+          // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
+          removeAttributes($("#section-ventilation"));
+     })
 
-      // JQuery event listener for baptism
-      $("#baptism").on("click", function () {
-            // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
-            removeAttributes($("#section-baptism"));
-      })
+     // JQuery event listener for baptism
+     $("#baptism").on("click", function () {
+          // This will remove the carousel references from ALL nodes. The array contains the elements that we want to hide
+          removeAttributes($("#section-baptism"));
+     })
 
-      // JQuery event listener for baptism
-      $("#conference").on("click", function () {
-            // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
-            removeAttributes($("#section-conference"));
-      })
+     // JQuery event listener for baptism
+     $("#conference").on("click", function () {
+          // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
+          removeAttributes($("#section-conference"));
+     })
 
-      // JQuery event listener for baptism
-      $("#kitchen").on("click", function () {
-            // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
-            removeAttributes($("#section-kitchen"));
-      })
+     // JQuery event listener for baptism
+     $("#kitchen").on("click", function () {
+          // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
+          removeAttributes($("#section-kitchen"));
+     })
 
-      // JQuery event listener for baptism
-      $("#camp").on("click", function () {
-            // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
-            removeAttributes($("#section-camp"));
-      })
+     // JQuery event listener for baptism
+     $("#camp").on("click", function () {
+          // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
+          removeAttributes($("#section-camp"));
+     })
 
-      /**
-       * Initialize the page time-block elements, set their color and availability based in the time. We need t
-       * build the HTML from scratch using text strings. I had in mind to CLONE a template row and add it but
-       * it would not add; as the next row. Leave for later.
-       */
-      function init() {
-            // This will remove the carousel references from ALL nodes.
-            removeAttributes($("#section-repairs"));
-            validateuse();
-      }
+     // JQuery event listener for baptism
+     $("#famchristmas").on("click", function () {
+          // This will remove the carousel references from ALL nodes.  The array contains the elements that we want to hide
+          removeAttributes($("#section-famchristmas"));
+     })
 
-      init();
+     /**
+      * Initialize the page time-block elements, set their color and availability based in the time. We need t
+      * build the HTML from scratch using text strings. I had in mind to CLONE a template row and add it but
+      * it would not add; as the next row. Leave for later.
+      */
+     function init() {
+          // This will remove the carousel references from ALL nodes.
+          removeAttributes($("#section-repairs"));
+          validateuse();
+     }
+
+     init();
 })
